@@ -1,0 +1,96 @@
+/* Variables */
+$font-stack: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+  "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+$primary-color: rgb(17, 17, 17);
+$text-color: rgb(245, 245, 245);
+$box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: $font-stack;
+  font-weight: 700;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Container for all cards */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  position: relative;
+}
+
+/* Individual card styling */
+.card {
+  flex: 1 0 25%;
+  min-width: 280px;
+  max-width: 370px;
+  background: $primary-color;
+  margin: 5px;
+  color: $text-color;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  span {
+    position: absolute;
+    top: 10px;
+    left: 340px;
+    transform: scale(1.1);
+  }
+  img {
+    height: 200px;
+    width: 250px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    padding: 10px 0;
+  }
+
+  h3 {
+    font-weight: 400;
+  }
+
+  /* Active card styling */
+  &.active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    width: 90vw;
+    height: 80vh;
+    z-index: 10;
+    box-shadow: $box-shadow;
+    overflow-y: auto;
+  }
+}
+
+/* Apply blur only when a card is active */
+.card-container {
+  .card.active ~ .card {
+    /* Target only non-active cards when an active card is present */
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+  }
+}
+
+input[type="search"],
+select {
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+button {
+  height: 30px;
+  width: 70px;
+  border-radius: 10px;
+}
