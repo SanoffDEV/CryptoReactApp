@@ -12,13 +12,29 @@ $box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   padding: 0;
   font-family: $font-stack;
   font-weight: 700;
+  ::-webkit-scrollbar {
+    width: 8px; /* Largeur de la scrollbar */
+    height: 8px; /* Hauteur de la scrollbar pour les scrollbars horizontales */
+  }
+
+  /* Partie de la scrollbar (la barre en elle-même) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Couleur gris clair */
+    border-radius: 10px; /* Coins arrondis */
+    border: 2px solid white; /* Bordure blanche pour un effet de séparation */
+  }
+
+  /* Partie de la scrollbar (la zone de glissement) */
+  ::-webkit-scrollbar-track {
+    background-color: white; /* Fond de la zone de défilement */
+    border-radius: 10px; /* Coins arrondis */
+  }
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Container for all cards */
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -26,24 +42,18 @@ html {
   position: relative;
 }
 
-/* Individual card styling */
 .card {
   flex: 1 0 25%;
   min-width: 280px;
   max-width: 370px;
-  background: $primary-color;
+  border: 1px solid $primary-color;
   margin: 5px;
-  color: $text-color;
+  color: $primary-color;
   border-radius: 20px;
   padding: 20px;
   position: relative;
   z-index: 1;
-  span {
-    position: absolute;
-    top: 10px;
-    left: 340px;
-    transform: scale(1.1);
-  }
+
   img {
     height: 200px;
     width: 250px;
@@ -59,25 +69,61 @@ html {
   h3 {
     font-weight: 400;
   }
+  h4 {
+    cursor: pointer;
 
-  /* Active card styling */
+    &:hover {
+      color: blue;
+    }
+  }
+
   &.active {
+    overflow: scroll;
+    background: whitesmoke;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1.2);
-    width: 90vw;
+    min-width: 600px;
     height: 80vh;
     z-index: 10;
     box-shadow: $box-shadow;
-    overflow-y: auto;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    span {
+      position: absolute;
+      transform: translateX(260px);
+      &:hover {
+        cursor: pointer;
+        transform: translateX(260px) scale(1.07);
+      }
+    }
+    img {
+      height: 270px;
+      width: 330px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      padding: 10px 0;
+    }
+
+    h3 {
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .recipe {
+      font-weight: 300;
+    }
   }
 }
 
-/* Apply blur only when a card is active */
 .card-container {
   .card.active ~ .card {
-    /* Target only non-active cards when an active card is present */
     filter: blur(5px);
     transition: filter 0.3s ease;
   }

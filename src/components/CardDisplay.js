@@ -18,8 +18,11 @@ const CardDisplay = () => {
     const card = document.querySelector(".card.active"); // Use the correct selector for the active card
     if (card) {
       document.body.style.overflow = "hidden"; // Disable scroll when card is active
-    } else {
-      document.body.style.overflow = "auto"; // Enable scroll when no card is active
+      document.body.style.pointerEvents = "none";
+      card.style.pointerEvents = "auto";
+    } else if (card === false) {
+      document.body.style.overflow = "auto";
+      document.body.style.pointerEvents = "auto"; // Enable scroll when no card is active
     }
   };
 

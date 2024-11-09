@@ -8,26 +8,16 @@ const Card = ({ meal }) => {
   };
   return (
     <div className={`card ${isActive ? "active" : ""}`}>
+      <span onClick={() => setIsActive(false)}>
+        {isActive ? <RxCross2 /> : ""}
+      </span>
       <h2>{meal.strMeal}</h2>
       <h3>{"Origin : " + meal.strArea}</h3>
       <img src={meal.strMealThumb} alt={meal.strMeal} />
-      <div className="reveal">
-        <h4 onClick={handleClick}>{isActive ? "" : "More Info"}</h4>
-        <span onClick={() => setIsActive(false)}>
-          {isActive ? <RxCross2 /> : ""}
-        </span>
-        <h3>{"Category : " + meal.strCategory}</h3>{" "}
-        {isActive
-          ? Array.from({ length: 20 }, (_, i) => {
-              const ingredient = meal[`strIngredient${i + 1}`];
-              const measure = meal[`strMeasure${i + 1}`];
+      <h4 onClick={handleClick}>{isActive ? "" : "More Info"}</h4>
 
-              return ingredient ? (
-                <h4 key={i}>{`${i + 1} : ${ingredient} : ${measure || ""}`}</h4>
-              ) : null;
-            })
-          : ""}
-      </div>
+      <h3>{isActive ? "Recipe" : ""} </h3>
+      <div className="recipe">{isActive ? meal.strInstructions : ""}</div>
     </div>
   );
 };
@@ -48,3 +38,14 @@ export default Card;
 //     })}
 //   </div>
 // )}
+
+// {isActive
+//   ? Array.from({ length: 20 }, (_, i) => {
+//       const ingredient = meal[`strIngredient${i + 1}`];
+//       const measure = meal[`strMeasure${i + 1}`];
+
+//       return ingredient ? (
+//         <h4 key={i}>{`${i + 1} : ${ingredient} : ${measure || ""}`}</h4>
+//       ) : null;
+//     })
+//   : ""}
