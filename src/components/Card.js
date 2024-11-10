@@ -15,9 +15,25 @@ const Card = ({ meal }) => {
       <h3>{"Origin : " + meal.strArea}</h3>
       <img src={meal.strMealThumb} alt={meal.strMeal} />
       <h4 onClick={handleClick}>{isActive ? "" : "More Info"}</h4>
+      <div className="aliments">
+        {isActive
+          ? Array.from({ length: 20 }, (_, i) => {
+              const ingredient = meal[`strIngredient${i + 1}`];
+              const measure = meal[`strMeasure${i + 1}`];
+
+              return ingredient ? (
+                <h5 key={i}>
+                  {`${i + 1} : ${ingredient} : ${measure || ""}  / `}
+                  &nbsp;
+                </h5>
+              ) : null;
+            })
+          : ""}
+      </div>
 
       <h3>{isActive ? "Recipe" : ""} </h3>
       <div className="recipe">{isActive ? meal.strInstructions : ""}</div>
+      <a href={meal.strYoutube}>{isActive ? "Learn in Video !" : ""}</a>
     </div>
   );
 };
@@ -38,14 +54,3 @@ export default Card;
 //     })}
 //   </div>
 // )}
-
-// {isActive
-//   ? Array.from({ length: 20 }, (_, i) => {
-//       const ingredient = meal[`strIngredient${i + 1}`];
-//       const measure = meal[`strMeasure${i + 1}`];
-
-//       return ingredient ? (
-//         <h4 key={i}>{`${i + 1} : ${ingredient} : ${measure || ""}`}</h4>
-//       ) : null;
-//     })
-//   : ""}

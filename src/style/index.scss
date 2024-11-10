@@ -39,12 +39,16 @@ html {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
-  position: relative;
+  justify-content: center; /* Centre les cartes horizontalement */
+  ::-webkit-scrollbar {
+    width: 0; /* Largeur de la scrollbar */
+    height: 0; /* Hauteur de la scrollbar pour les scrollbars horizontales */
+    display: none;
+  }
 }
 
 .card {
-  flex: 1 0 25%;
-  min-width: 280px;
+  flex: 1 0 30%;
   max-width: 370px;
   border: 1px solid $primary-color;
   margin: 5px;
@@ -73,7 +77,9 @@ html {
     cursor: pointer;
 
     &:hover {
-      color: blue;
+      transform: scale(1.05);
+      transition: 0.4s ease;
+      color: #605b5b;
     }
   }
 
@@ -111,13 +117,23 @@ html {
       font-size: 1.7rem;
       padding: 10px 0;
     }
+    h5 {
+      display: inline-block;
+    }
 
     h3 {
+      margin-top: 10px;
       font-weight: 400;
       margin-bottom: 1rem;
     }
     .recipe {
       font-weight: 300;
+    }
+    a {
+      cursor: pointer;
+      margin-top: 25px;
+      font-size: 0.8rem;
+      color: black;
     }
   }
 }

@@ -27,12 +27,10 @@ const CardDisplay = () => {
   };
 
   return (
-    <div className="Card-container">
-      <div className="card-container">
-        {mealData.map((meal) => (
-          <Card key={meal.idMeal} meal={meal} />
-        ))}
-      </div>
+    <div className="card-container">
+      {mealData.map((meal) => (
+        <Card key={meal.idMeal} meal={meal} />
+      ))}
     </div>
   );
 };
