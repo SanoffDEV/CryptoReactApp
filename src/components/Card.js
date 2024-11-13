@@ -16,6 +16,7 @@ const Card = ({ meal }) => {
       <img src={meal.strMealThumb} alt={meal.strMeal} />
       <h4 onClick={handleClick}>{isActive ? "" : "More Info"}</h4>
       <div className="aliments">
+        <h3>{isActive ? "Ingredients" : ""}</h3>
         {isActive
           ? Array.from({ length: 20 }, (_, i) => {
               const ingredient = meal[`strIngredient${i + 1}`];
@@ -23,7 +24,7 @@ const Card = ({ meal }) => {
 
               return ingredient ? (
                 <h5 key={i}>
-                  {`${i + 1} : ${ingredient} : ${measure || ""}  / `}
+                  {`${i + 1} : ${ingredient} : ${measure || ""}  - `}
                   &nbsp;
                 </h5>
               ) : null;
@@ -39,18 +40,3 @@ const Card = ({ meal }) => {
 };
 
 export default Card;
-
-// {showInfo && (
-//   <div>
-//     <h3>{"Category : " + meal.strCategory}</h3>
-//     {Array.from({ length: 20 }, (_, i) => {
-//       const ingredient = meal[`strIngredient${i + 1}`];
-//       const measure = meal[`strMeasure${i + 1}`];
-
-//       // Only render if the ingredient exists
-//       return ingredient ? (
-//         <h4 key={i}>{`${i + 1} : ${ingredient} : ${measure || ""}`}</h4>
-//       ) : null;
-//     })}
-//   </div>
-// )}

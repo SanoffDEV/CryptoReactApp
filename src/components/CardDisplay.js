@@ -1,36 +1,40 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import axios from "axios";
+import InputCategory from "./InputCategory";
 
-const CardDisplay = () => {
+const CardDisplay = ({ inputValue, searchInputValue }) => {
   const [mealData, setMealData] = useState([]);
+
+  const searchQuery = searchInputValue || "chicken";
 
   useEffect(() => {
     axios
-      .get("https://www.themealdb.com/api/json/v1/1/search.php?s=chicken")
+      .get(
+        `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchQuery}`
+      )
       .then((res) => {
-        setMealData(res.data.meals);
+        setMealData(res.data.meals || []);
+        <InputCategory mealData={res.data.meals} />;
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des données :", error);
       });
-    scroll();
-  }, []);
+  }, [searchQuery]);
 
-  const scroll = () => {
-    const card = document.querySelector(".card.active"); // Use the correct selector for the active card
-    if (card) {
-      document.body.style.overflow = "hidden"; // Disable scroll when card is active
-      document.body.style.pointerEvents = "none";
-      card.style.pointerEvents = "auto";
-    } else if (card === false) {
-      document.body.style.overflow = "auto";
-      document.body.style.pointerEvents = "auto"; // Enable scroll when no card is active
-    }
-  };
+  const filteredMeals = mealData
+    .filter((meal) =>
+      meal.strMeal.toLowerCase().includes(searchInputValue || "")
+    )
+    .slice(0, Number(inputValue));
 
   return (
-    <div className="card-container">
-      {mealData.map((meal) => (
-        <Card key={meal.idMeal} meal={meal} />
-      ))}
+    <div className="app">
+      <div className="card-container">
+        {filteredMeals.map((meal) => (
+          <Card key={meal.idMeal} meal={meal} />
+        ))}
+      </div>
     </div>
   );
 };
