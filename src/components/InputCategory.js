@@ -28,6 +28,7 @@ const InputCategory = ({ mealData }) => {
         <CardDisplay
           inputValue={inputValue}
           searchInputValue={searchInputValue}
+          key={key}
         />
       </div>
     </div>
